@@ -16,6 +16,9 @@
 | **Phone Intelligence** | E.164 normalization, carrier lookup, VoIP detection (PhoneInfoga, WhoCalledMe) |
 | **Domain & Infrastructure** | Passive DNS, subdomains, CT logs, Google dorks (theHarvester, Recon-ng, crt.sh) |
 | **GEOINT / IMINT** | EXIF forensics, reverse image search, OSM triangulation (ExifTool, TinEye, Overpass Turbo) |
+| **Behavioral / Temporal** | Circadian sleep/activity window analysis, timezone derivation (`fb-sleep-stats`) |
+| **People Directories** | Multi-source public record corroboration & Cyrillic/Russian lookup (Spokeo, Yandex People) |
+| **Orchestration & Custody** | Automated passive sweeps, SHA-256 evidence hashing, tamper-evident trails (SpiderFoot, Recon-ng, Hunchly) |
 | **Evidence Ledger** | Append-only JSON/SQLite chain-of-custody for every finding |
 | **Confidence Scoring** | Mathematically grounded $S_c$ formula with VERIFIED/PROBABLE/HYPOTHETICAL/DISCARDED brackets |
 | **OPSEC Compliance** | Passive-first defaults; controlled semi-active; active exploitation strictly prohibited |
@@ -297,14 +300,18 @@ $$S_c = \min\left(1.0, \sum_{i=1}^{n} w_i \cdot R_i \cdot C_i\right)$$
 
 ## 🔧 Tool Requirements (Optional but Recommended)
 
-| Tool | Install | Purpose |
+| Tool | Install / Access | Purpose |
 |------|---------|---------|
-| `sherlock` | `pip install sherlock-project` | Username enumeration |
-| `holehe` | `pip install holehe` | Email registration check |
-| `phoneinfoga` | [releases](https://github.com/sundowndev/PhoneInfoga/releases) | Phone OSINT |
-| `theharvester` | `pip install theharvester` | Domain recon |
-| `exiftool` | [exiftool.org](https://exiftool.org/) | Metadata extraction |
-| `spiderfoot` | [spiderfoot.net](https://www.spiderfoot.net/) | Automation |
+| `sherlock` | `pip install sherlock-project` | Username enumeration across 400+ platforms |
+| `holehe` | `pip install holehe` | Zero-touch email registration check across 120+ platforms |
+| `phoneinfoga` | [releases](https://github.com/sundowndev/PhoneInfoga/releases) | E.164 phone parsing & carrier reconnaissance |
+| `theharvester` | `pip install theharvester` | Search engine & CT log domain/subdomain harvesting |
+| `exiftool` | [exiftool.org](https://exiftool.org/) | Deep offline image metadata forensics & GPS extraction |
+| `spiderfoot` | [spiderfoot.net](https://www.spiderfoot.net/) | Multi-source passive asset enumeration & footprinting |
+| `recon-ng` | `pip install recon-ng` | Modular reconnaissance workspace framework |
+| `epieos` | [epieos.com](https://epieos.com/) | Google account (Gaia ID), Maps reviews & ecosystem pivot |
+| `overpass-turbo` | [overpass-turbo.eu](https://overpass-turbo.eu/) | OpenStreetMap spatial queries for visual triangulation |
+| `hunchly` | [hunch.ly](https://www.hunch.ly/) | Tamper-evident automated evidentiary capture & SHA-256 hashing |
 
 > The skill works **without local tools** (uses web-based equivalents), but local CLIs are faster and more reliable.
 

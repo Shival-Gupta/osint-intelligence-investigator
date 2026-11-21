@@ -145,4 +145,84 @@ The following appear in the raw list and are covered by the categories above; li
 | Phone / Telecom | PhoneInfoga, WhoCalledMe, carrier APIs |
 | Domain & Infrastructure | theHarvester, Recon-ng, SpiderFoot, crt.sh, GHDB dorks, RDAP/WHOIS |
 | Visual / GEOINT | ExifTool, ExifData, TinEye, Google Lens, Overpass Turbo, OSM |
+| Behavioral / Temporal | fb-sleep-stats, Git/X timestamp chronolocation |
+| People Directories | Spokeo, ThatsThem, BeenVerified, FastPeopleSearch, TruePeopleSearch, FamilyTreeNow, Yandex People |
 | Orchestration | SpiderFoot, Maltego, Hunchly, OpenOSINT, Recon-ng |
+
+---
+
+## 11. Tool CLI Command & Parameter Reference
+
+| Tool | Primary Command Syntax | Key Flags & Options | Network Behavior | API / Auth Required? |
+|---|---|---|---|---|
+| **Sherlock** | `sherlock <username>` | `--timeout 10`, `--print-found`, `--output <file>`, `--proxy <url>` | High-volume HTTP GET across 400+ endpoints; passive to target | No |
+| **Holehe** | `holehe <email>` | `--only-used`, `--no-clear`, `--timeout 10` | Password-reset discovery requests; zero-touch (no email sent) | No |
+| **PhoneInfoga** | `phoneinfoga scan -n <+1234567890>` | `--recon`, `-s <numverify>` | E.164 parsing (offline libphonenumber) + search dorks | Optional (Numverify) |
+| **theHarvester** | `theHarvester -d <domain> -b <sources>` | `-b bing,duckduckgo,crtsh,certspotter`, `-l 200`, `-f <output.json>` | Passive query to public search engines & CT logs | Optional (Shodan, Censys) |
+| **ExifTool** | `exiftool -a -u -g1 <file>` | `-G`, `-s`, `-json`, `-csv` | 100% offline local metadata parsing | No |
+| **SpiderFoot** | `sf.py -s <target> -m <modules>` | `-m sfp_whois,sfp_dnsresolve`, `-u cli`, `-o json` | Modular; can range from passive DNS to noisy probing | Optional (API keys per module) |
+| **Recon-ng** | `recon-ng -w <workspace>` | `modules load recon/...`, `run`, `db insert ...` | Modular; adheres to configured workspaces | Module-dependent |
+| **Overpass QL** | `curl -X POST -d @query.osm https://overpass-api.de/api/interpreter` | `[out:json][timeout:25];` | Passive query against OpenStreetMap public API | No (public rate-limited) |
+
+---
+
+## 12. Google Hacking Database (GHDB) Dork Recipes
+
+For authorized defensive security research and discovery of forgotten exposures:
+
+| Objective | Dork Syntax | Notes |
+|---|---|---|
+| **Exposed Documents** | `site:target.com filetype:pdf OR filetype:docx OR filetype:xlsx "confidential" OR "internal use only"` | Uncovers unintentionally indexed corporate documents. |
+| **Administrative Portals** | `site:target.com inurl:admin OR inurl:login OR inurl:portal OR inurl:dashboard` | Locates authentication surfaces and staging login screens. |
+| **Database & Config Dumps** | `site:target.com ext:sql OR ext:env OR ext:log OR ext:bak OR ext:conf` | Identifies misconfigured directory indexing or backup files. |
+| **Directory Indexing** | `site:target.com intitle:"index of /" OR intitle:"index of /uploads"` | Detects missing web server directory browse restrictions. |
+| **Cloud Storage Buckets (AWS S3)** | `site:s3.amazonaws.com "target-brand" OR "target-keyword"` | Identifies exposed public Amazon S3 buckets. |
+| **Cloud Storage (GCP & Azure)** | `site:storage.googleapis.com "target-brand"` / `site:blob.core.windows.net "target-brand"` | Identifies exposed GCP storage or Azure Blob storage. |
+
+---
+
+## 13. Overpass QL Geospatial Triangulation Recipes
+
+For pinpointing geographic landmarks and features identified during visual forensics:
+
+### Recipe 1: Triangulating Landmarks Near Public Transit
+```text
+[out:json][timeout:25];
+(
+  node["railway"="tram_stop"](around:250, 50.0755, 14.4378);
+  node["amenity"="place_of_worship"](around:250, 50.0755, 14.4378);
+  way["highway"="pedestrian"](around:250, 50.0755, 14.4378);
+);
+out body;
+>;
+out skel qt;
+```
+
+### Recipe 2: Identifying Distinctive Architectural Vernacular (Bridges, Towers, Parks)
+```text
+[out:json][timeout:30];
+(
+  node["man_made"="tower"](around:500, {{lat}}, {{lon}});
+  way["bridge"="yes"](around:500, {{lat}}, {{lon}});
+  node["leisure"="park"](around:500, {{lat}}, {{lon}});
+);
+out body;
+>;
+out skel qt;
+```
+
+---
+
+## 14. Evidence Ledger Attribute Ingestion Mapping
+
+| Evidence Source | Target Entity Type | Ingested Node Attributes | Base Reliability ($w_i$) |
+|---|---|---|---|
+| `Holehe` | `IDENTITY_PERSON` / `ONLINE_ACCOUNT` | `registered_platforms[]`, `account_verified` | 0.85 |
+| `Epieos` | `IDENTITY_PERSON` | `google_gaia_id`, `calendar_url`, `maps_reviews[]`, `picasa_album` | 0.85 |
+| `PhoneInfoga` | `PHONE_RECORD` | `country_code`, `carrier_name`, `line_type` (`MOBILE`/`VOIP`/`LANDLINE`) | 0.90 |
+| `theHarvester` | `INFRA_DOMAIN` / `NETWORK_HOST` | `subdomains[]`, `harvested_emails[]`, `associated_ips[]` | 0.80 |
+| `ExifTool` | `MEDIA_IMAGE` / `GEO_COORDINATE` | `gps_latitude`, `gps_longitude`, `camera_make_model`, `serial_number`, `software` | 0.95 |
+| `HaveIBeenPwned` | `BREACH_RECORD` | `breach_names[]`, `compromised_dates[]`, `data_classes[]` | 0.90 |
+| `DeHashed` | `CREDENTIAL_LINK` | `hash_type`, `associated_usernames[]`, `associated_ips[]` | 0.85 |
+| `People Search (Spokeo/ThatsThem)` | `IDENTITY_PERSON` | `candidate_addresses[]`, `candidate_relatives[]` (Requires corroboration) | 0.40 |
+

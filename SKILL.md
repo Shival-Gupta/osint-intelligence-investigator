@@ -146,6 +146,58 @@ When a request crosses these boundaries, briefly explain the privacy/safety issu
    >;
    out skel qt;
    ```
+4. **Chronolocation & Solar Azimuth Analysis:**
+   - Measure shadow length and direction relative to known vertical objects.
+   - Use sun angle / azimuth calculators (e.g., SunCalc) against estimated capture dates to bound latitude/longitude candidates.
+
+### Playbook F: Public Records & People Directory Corroboration
+**Target:** Subject legal name, candidate aliases, or geographic association.
+
+1. **Multi-Source Aggregator Querying:**
+   - Cross-query primary public directories: Spokeo (`https://www.spokeo.com`), ThatsThem (`https://thatsthem.com`), BeenVerified (`https://www.beenverified.com`), FastPeopleSearch (`https://www.fastpeoplesearch.com`), TruePeopleSearch (`https://www.truepeoplesearch.com`), and FamilyTreeNow (`https://www.familytreenow.com`).
+   - For Eastern European, Russian, or Cyrillic-language subjects: query Yandex People (`https://people.yandex.ru`) for VKontakte, Odnoklassniki, and Moimir social profile indexing.
+2. **High-Recall / Low-Precision Filter Gate:**
+   - Never accept an aggregator match as fact ($w_i = 0.40$).
+   - Require corroboration across at least two independent primary records (e.g., state business filings, public SEC/corporate records, domain registrant history).
+3. **Privacy & Protective Boundaries:**
+   - Redact unrelated household members, minors, and non-relevant private contacts.
+   - Exclude home addresses and sensitive financial details from general output dossiers.
+
+### Playbook G: Behavioral, Temporal & Chronolocation Analysis
+**Target:** Time-series activity data (Git commits, messaging timestamps, social media posts).
+
+1. **Circadian Activity Histogram (`fb-sleep-stats` Methodology):**
+   - Ingest all observable activity timestamps and normalize to UTC (`YYYY-MM-DDTHH:MM:SSZ`).
+   - Bucket actions into a 24-hour UTC activity distribution histogram.
+   - Identify the continuous 6–8 hour trough of lowest activity (the natural biological sleep window).
+2. **Timezone Derivation:**
+   - Assume typical sleep occurs between 23:00 and 07:00 local time.
+   - Calculate candidate UTC offset: $\text{Offset} \approx \text{Local Sleep Midpoint} - \text{Observed UTC Inactivity Midpoint}$.
+   - Correlate with candidate geographic regions and language/locale markers (date format, keyboard layouts).
+
+### Playbook H: Multi-Source Automation & Chain of Custody Preservation
+**Target:** Enterprise asset discovery and evidentiary capture.
+
+1. **Passive Automated Reconnaissance with SpiderFoot:**
+   ```bash
+   python3 sf.py -s target-organization.com -m sfp_whois,sfp_dnsresolve,sfp_crt -u cli -o json
+   ```
+   *Enforce passive-only modules; prohibit active port scanning or intrusive vulnerability crawls.*
+2. **Modular Workspace Intelligence with Recon-ng:**
+   ```text
+   recon-ng
+   workspaces create case_investigation
+   db insert domains target-organization.com
+   modules load recon/domains-hosts/brute_hosts
+   run
+   ```
+3. **Tamper-Evident Evidence Preservation (Hunchly / Hash Ledger):**
+   - Capture full web page DOM and HTTP response headers.
+   - Compute SHA-256 hash immediately upon ingest:
+     ```bash
+     sha256sum ./evidence/page_snapshot.mhtml > ./evidence/page_snapshot.sha256
+     ```
+   - Record in the append-only Evidence Ledger to ensure non-repudiation.
 
 ---
 
