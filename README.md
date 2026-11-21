@@ -3,7 +3,7 @@
 > A universal, privacy-first Open Source Intelligence skill for AI agents. Conduct lawful, authorized defensive research with evidence-ledger provenance, cross-source confidence scoring, and structured intelligence dossiers.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Platform: Universal](https://img.shields.io/badge/Platform-Hermes%20%7C%20Antigravity%20%7C%20Claude%20%7C%20Codex%20%7C%20OpenCode%20%7C%20Gemini%20%7C%20OpenClaw-blue.svg)](https://github.com/ShivalGupta/osint-intelligence-investigator)
+[![Platform: Universal](https://img.shields.io/badge/Platform-Hermes%20%7C%20Antigravity%20%7C%20Claude%20%7C%20Codex%20%7C%20OpenCode%20%7C%20Gemini%20%7C%20OpenClaw-blue.svg)](https://github.com/Shival-Gupta/osint-intelligence-investigator)
 
 ---
 
@@ -27,7 +27,7 @@
 Copy-paste this into **any** supported AI agent:
 
 ```text
-I want to install the OSINT Intelligence Investigator skill. Fetch the skill package from https://github.com/ShivalGupta/osint-intelligence-investigator and install it for my current agent platform (Hermes/Antigravity/Claude/Codex/OpenCode/Gemini/OpenClaw). Follow the platform-specific installation steps in the repo's README.md, then confirm the skill is active and ready for OSINT investigations.
+I want to install the OSINT Intelligence Investigator skill. Fetch the skill package from https://github.com/Shival-Gupta/osint-intelligence-investigator and install it for my current agent platform (Hermes/Antigravity/Claude/Codex/OpenCode/Gemini/OpenClaw). Follow the platform-specific installation steps in the repo's README.md, then confirm the skill is active and ready for OSINT investigations.
 ```
 
 > **Why this works:** The prompt tells the agent to (1) fetch the repo, (2) detect its own platform, (3) follow the platform-specific steps below, and (4) verify activation. All major agent platforms can execute git/web fetch + file operations.
@@ -40,14 +40,14 @@ I want to install the OSINT Intelligence Investigator skill. Fetch the skill pac
 
 ```bash
 # Option 1: CLI (recommended)
-hermes skill install https://github.com/ShivalGupta/osint-intelligence-investigator
+hermes skill install https://github.com/Shival-Gupta/osint-intelligence-investigator
 
 # Option 2: Manual
-git clone https://github.com/ShivalGupta/osint-intelligence-investigator ~/.hermes/skills/osint-intelligence-investigator
+git clone https://github.com/Shival-Gupta/osint-intelligence-investigator ~/.hermes/skills/osint-intelligence-investigator
 hermes skill reload
 
 # Option 3: Profile-specific
-hermes --profile=osint skill install https://github.com/ShivalGupta/osint-intelligence-investigator
+hermes --profile=osint skill install https://github.com/Shival-Gupta/osint-intelligence-investigator
 ```
 
 **Activate in chat:**
@@ -73,7 +73,7 @@ swarm action:"add" name:"osint" brief:"Autonomous OSINT investigator with SOCMIN
 ```yaml
 # .antigravity/skills/osint.yaml
 name: osint-intelligence-investigator
-source: https://github.com/ShivalGupta/osint-intelligence-investigator
+source: https://github.com/Shival-Gupta/osint-intelligence-investigator
 agents:
   - coordinator
   - socmint
@@ -89,10 +89,10 @@ agents:
 
 ```bash
 # Option 1: Global skill directory
-git clone https://github.com/ShivalGupta/osint-intelligence-investigator ~/.claude/skills/osint-intelligence-investigator
+git clone https://github.com/Shival-Gupta/osint-intelligence-investigator ~/.claude/skills/osint-intelligence-investigator
 
 # Option 2: Project-local (recommended for team sharing)
-git clone https://github.com/ShivalGupta/osint-intelligence-investigator .claude/skills/osint-intelligence-investigator
+git clone https://github.com/Shival-Gupta/osint-intelligence-investigator .claude/skills/osint-intelligence-investigator
 ```
 
 **Activate:**
@@ -108,10 +108,10 @@ git clone https://github.com/ShivalGupta/osint-intelligence-investigator .claude
 
 ```bash
 # Codex skills live in ~/.codex/skills/
-git clone https://github.com/ShivalGupta/osint-intelligence-investigator ~/.codex/skills/osint-intelligence-investigator
+git clone https://github.com/Shival-Gupta/osint-intelligence-investigator ~/.codex/skills/osint-intelligence-investigator
 
 # Or project-local
-git clone https://github.com/ShivalGupta/osint-intelligence-investigator .codex/skills/osint-intelligence-investigator
+git clone https://github.com/Shival-Gupta/osint-intelligence-investigator .codex/skills/osint-intelligence-investigator
 ```
 
 **Activate in Codex session:**
@@ -125,7 +125,7 @@ git clone https://github.com/ShivalGupta/osint-intelligence-investigator .codex/
 
 ```bash
 # OpenCode skill directory
-git clone https://github.com/ShivalGupta/osint-intelligence-investigator ~/.config/opencode/skills/osint-intelligence-investigator
+git clone https://github.com/Shival-Gupta/osint-intelligence-investigator ~/.config/opencode/skills/osint-intelligence-investigator
 ```
 
 **Activate:**
@@ -139,7 +139,7 @@ git clone https://github.com/ShivalGupta/osint-intelligence-investigator ~/.conf
 
 ```bash
 # Gemini skills directory (adjust per platform)
-git clone https://github.com/ShivalGupta/osint-intelligence-investigator ~/.gemini/skills/osint-intelligence-investigator
+git clone https://github.com/Shival-Gupta/osint-intelligence-investigator ~/.gemini/skills/osint-intelligence-investigator
 ```
 
 **In Gemini chat:**
@@ -155,7 +155,7 @@ Any agent that loads Markdown instruction files:
 
 ```bash
 # Clone to your agent's instruction/skill directory
-git clone https://github.com/ShivalGupta/osint-intelligence-investigator /path/to/agent/skills/osint-intelligence-investigator
+git clone https://github.com/Shival-Gupta/osint-intelligence-investigator /path/to/agent/skills/osint-intelligence-investigator
 ```
 
 **Load the skill:**
@@ -340,8 +340,8 @@ Built on methodologies from:
 
 ## 📞 Support
 
-- **Issues:** [GitHub Issues](https://github.com/ShivalGupta/osint-intelligence-investigator/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/ShivalGupta/osint-intelligence-investigator/discussions)
+- **Issues:** [GitHub Issues](https://github.com/Shival-Gupta/osint-intelligence-investigator/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/Shival-Gupta/osint-intelligence-investigator/discussions)
 
 ---
 
